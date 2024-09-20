@@ -10,7 +10,7 @@ export function IntroAndVideo(){
       </p>
       <div className='flex text-center justify-center px-4'>
         <ReactPlayer
-          url='https://www.youtube.com/watch?v=LXb3EKWsInQ'
+          url='#'
           controls
         />
       </div>

@@ -7,6 +7,7 @@ import { IntroAndVideo } from "./introAndVideo";
 import { Footer } from "./footer";
 import InputField from "../../components/inputField";
 import AddressForm from "./adressForm";
+import MyDateSelector from "../../components/dateSelector";
 
 interface Childs{
   id: number
@@ -93,7 +94,7 @@ export function LandingPage() {
       })
       console.log(response.data)
     }
-
+  
   return (
     <div className="min-w-xl space-y-6">
       <Header />
@@ -103,7 +104,7 @@ export function LandingPage() {
           <h2 className="text-[26px] leading-[30px] font-bold text-primary pt-3 text-center">Faça agora o seu cadastro <br/> e garanta o seu desconto!</h2>
           <form className="max-w-[540px] mx-auto space-y-2" onSubmit={SubmitForm}>
               <InputField label="Nome Completo" placeholder="Informe aqui o seu nome completo" onValueChange={setFullName}/>
-              <InputField label="Telefone" placeholder="(82 9 9999-9999)" onValueChange={setPhone}/>
+              <InputField label="Telefone" placeholder="(82) 9 9999-9999" onValueChange={setPhone}/>
              <InputField label="E-mail" placeholder="Informe aqui o seu melhor e-mail" onValueChange={setEmail}/>
               <AddressForm
                 cep={cep}
@@ -119,23 +120,18 @@ export function LandingPage() {
                 <img src="/clubinho.svg" alt="clubinho" className=""/> 
               </div>             
               <div>
-                {
+              {
                   toggleBoyCard || toggleGirlCard 
                    ? 
                    (toggleBoyCard) 
                    ?
-                   <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Nome Completo</label>
-                    <input
-                      onChange={(event) => {
-                      setChildName(event.target.value)
+                   <div className="flex flex-col gap-1.5 text-primary">
+                    <InputField label="Nome Completo" placeholder="Informe aqui o nome completo" onValueChange={(event)=>{
+                      setChildName(event)
                       setGender('M')
-                      }}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Informe aqui o nome completo"/>
-                    <label className="px-4 font-light">Data de Nascimento</label>
-                    <input type="date" className="px-4" onChange={event => setAge(event.target.value)} />
+                    }} />
+                    <MyDateSelector onDateChange={setAge}/>
+
                     <div className="flex items-center justify-center gap-3">
                       <button 
                       className="bg-opacity-30 bg-primary rounded-2xl text-primary h-[35px] w-[140px] hover:bg-primary hover:text-[#fff]"
