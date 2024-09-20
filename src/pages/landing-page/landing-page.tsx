@@ -1,4 +1,4 @@
-import { CirclePlus, Search } from "lucide-react";
+import { CirclePlus} from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { api } from "../../lib/axios";
 import useViaCep from '@rsiqueira/use-viacep';
@@ -6,6 +6,7 @@ import { Header } from "./header";
 import { IntroAndVideo } from "./introAndVideo";
 import { Footer } from "./footer";
 import InputField from "../../components/inputField";
+import AddressForm from "./adressForm";
 
 interface Childs{
   id: number
@@ -32,13 +33,6 @@ export function LandingPage() {
   const [toggleGirlCard, setToggleGirlCard] = useState(false)
   const { cep } = useViaCep(CEP);
 
-  function searchCEP(){
-    setCEP(cep.cep)
-    setLocalidade(cep.logradouro)
-    setDistrict(cep.bairro)
-    setUF(cep.uf)
-    setCity(cep.localidade)
-  }
   function addChild(){
     const newChild: Childs = {
       id: myChilds.length + 1,
@@ -55,16 +49,13 @@ export function LandingPage() {
     setMyChilds(newChildsList)
     return ''
   }
-
   function openBoyCard(){
     setToggleBoyCard(true)
     setToggleGirlCard(false)
   }
-
   function closeBoyCard(){
     setToggleBoyCard(false)
   }
-
   function openGirlCard(){
     setToggleBoyCard(false)
     setToggleGirlCard(true)
@@ -102,6 +93,7 @@ export function LandingPage() {
       })
       console.log(response.data)
     }
+
   return (
     <div className="min-w-xl space-y-6">
       <Header />
@@ -110,145 +102,18 @@ export function LandingPage() {
           <IntroAndVideo />
           <h2 className="text-[26px] leading-[30px] font-bold text-primary pt-3 text-center">Faça agora o seu cadastro <br/> e garanta o seu desconto!</h2>
           <form className="max-w-[540px] mx-auto space-y-2" onSubmit={SubmitForm}>
-              <InputField
-                label="Nome Completo" 
-                placeholder="Informe aqui o seu nome completo" 
-                onChange={setFullName}
+              <InputField label="Nome Completo" placeholder="Informe aqui o seu nome completo" onValueChange={setFullName}/>
+              <InputField label="Telefone" placeholder="(82 9 9999-9999)" onValueChange={setPhone}/>
+             <InputField label="E-mail" placeholder="Informe aqui o seu melhor e-mail" onValueChange={setEmail}/>
+              <AddressForm
+                cep={cep}
+                setCEP={setCEP}
+                setCity={setCity}
+                setDistrict={setDistrict}
+                setLocalidade={setLocalidade}
+                setNumber={setNumber}
+                setUF={setUF}
               />
-            <div className="flex flex-col gap-1.5 text-primary px-8">
-              <label className="px-4 font-light">Telefone</label>
-              <input
-                onChange={event => setPhone(event.target.value)}
-                className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                type="text"
-                placeholder="(82) 9 9999-9999"/>
-            </div>
-            <div className="flex flex-col gap-1.5 text-primary px-8">
-              <label className="px-4 font-light">E-mail</label>
-              <input
-                onChange={event => setEmail(event.target.value)}
-                className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                type="text"
-                placeholder="Informe aqui o seu melhor e-mail"/>
-            </div>
-              {
-                cep.cep 
-                ? <div>
-                   <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">CEP</label>
-                    <div className="flex items-center justify-between gap-2">
-                      <input
-                        onChange={(event) => setCEP(event.target.value)}
-                        className="placeholder:text-primary bg-opacity-30 bg-primary  py-2 px-4 rounded-2xl font-light w-full"
-                        type="text"
-                        placeholder="00000-000"/>
-                        <button type='button' onClick={searchCEP}>
-                          <Search className="size-5"/>
-                        </button>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Endereço</label>
-                    <input
-                      onChange={(event) => setLocalidade(event.target.value)}
-                      defaultValue={cep.logradouro}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder={cep.logradouro}/>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Número</label>
-                    <input
-                      onChange={(event) => setNumber(event.target.value)}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Informe aqui o número do seu endereço"/>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Bairro</label>
-                    <input
-                      onChange={(event) => setDistrict(event.target.value)}
-                      defaultValue={cep.bairro}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Informe aqui o seu bairro"/>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Cidade</label>
-                    <input
-                      onChange={(event) => setCity(event.target.value)}
-                      defaultValue={cep.localidade}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Cidade"/>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Estado</label>
-                    <input
-                      onChange={(event) => setUF(event.target.value)}
-                      defaultValue={cep.uf}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Estado"/>
-                  </div>
-                </div>
-                : 
-                <div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">CEP</label>
-                    <div className="flex items-center justify-between gap-2">
-                      <input
-                        onChange={(event) => setCEP(event.target.value)}
-                        className="placeholder:text-primary bg-opacity-30 bg-primary  py-2 px-4 rounded-2xl font-light w-full"
-                        type="text"
-                        placeholder="00000-000"/>
-                        <button type='button' onClick={searchCEP}>
-                        <Search className="size-5"/>
-                        </button>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Endereço</label>
-                    <input
-                      onChange={(event) => setLocalidade(event.target.value)}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Rua"/>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Número</label>
-                    <input
-                      onChange={(event) => setNumber(event.target.value)}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Informe aqui o número do seu endereço"/>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Bairro</label>
-                    <input
-                      onChange={(event) => setDistrict(event.target.value)}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Informe aqui o seu bairro"/>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Cidade</label>
-                    <input
-                      onChange={(event) => setCity(event.target.value)}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Cidade"/>
-                  </div>
-                  <div className="flex flex-col gap-1.5 text-primary px-8">
-                    <label className="px-4 font-light">Estado</label>
-                    <input
-                      onChange={(event) => setUF(event.target.value)}
-                      className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Estado"/>
-                  </div>
-                </div>
-              }
               <div className="flex items-baseline justify-center gap-1.5">
                 <h2 className="text-[24px] font-bold text-primary">Cadastre aqui o seu </h2> 
                 <img src="/clubinho.svg" alt="clubinho" className=""/> 

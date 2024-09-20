@@ -4,17 +4,17 @@
 
 @font-face {
   font-family: "CottorWay";
-  src: url("/public/fonts/CottorWay-Bold.otf") format("opentype");
+  src: url("/fonts/CottorWay-Bold.otf") format("opentype");
   font-weight: 700;
 }
 @font-face {
   font-family: "CottorWay";
-  src: url("/public/fonts/CottorwayPro-Medium.otf") format("opentype");
+  src: url("/fonts/CottorwayPro-Medium.otf") format("opentype");
   font-weight: 500;
 }
 @font-face {
   font-family: "CottorWay";
-  src: url("/public/fonts/CottorwayPro-Light.otf") format("opentype");
+  src: url("/fonts/CottorwayPro-Light.otf") format("opentype");
   font-weight: 300;
 }
 
