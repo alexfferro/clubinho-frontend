@@ -1,10 +1,11 @@
 import { CirclePlus, Search } from "lucide-react";
 import { useState, type FormEvent } from "react";
-import { api } from "../lib/axios";
+import { api } from "../../lib/axios";
 import useViaCep from '@rsiqueira/use-viacep';
-import { Header } from "./landing-page/header";
-import { IntroAndVideo } from "./landing-page/introAndVideo";
-import { Footer } from "./landing-page/footer";
+import { Header } from "./header";
+import { IntroAndVideo } from "./introAndVideo";
+import { Footer } from "./footer";
+import InputField from "../../components/inputField";
 
 interface Childs{
   id: number
@@ -101,9 +102,6 @@ export function LandingPage() {
       })
       console.log(response.data)
     }
-
-
-
   return (
     <div className="min-w-xl space-y-6">
       <Header />
@@ -112,14 +110,11 @@ export function LandingPage() {
           <IntroAndVideo />
           <h2 className="text-[26px] leading-[30px] font-bold text-primary pt-3 text-center">Faça agora o seu cadastro <br/> e garanta o seu desconto!</h2>
           <form className="max-w-[540px] mx-auto space-y-2" onSubmit={SubmitForm}>
-            <div className="flex flex-col gap-1.5 text-primary px-8">
-              <label className="px-4 font-light">Nome Completo</label>
-              <input
-                onChange={event => setFullName(event.target.value)}
-                className="bg-opacity-30 bg-primary placeholder:text-primary py-2 px-4 rounded-2xl font-light"
-                type="text"
-                placeholder="Informe aqui o seu nome completo"/>
-            </div>
+              <InputField
+                label="Nome Completo" 
+                placeholder="Informe aqui o seu nome completo" 
+                onChange={setFullName}
+              />
             <div className="flex flex-col gap-1.5 text-primary px-8">
               <label className="px-4 font-light">Telefone</label>
               <input
