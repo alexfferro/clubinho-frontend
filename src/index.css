@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "CottorWay";
+  src: url("/public/fonts/CottorWay-Bold.otf") format("opentype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "CottorWay";
+  src: url("/public/fonts/CottorwayPro-Medium.otf") format("opentype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "CottorWay";
+  src: url("/public/fonts/CottorwayPro-Light.otf") format("opentype");
+  font-weight: 300;
+}
+
+* {
+  min-width: 0;
+}
