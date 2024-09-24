@@ -130,7 +130,7 @@ export function LandingPage() {
                       setChildName(event)
                       setGender('M')
                     }} />
-                    <MyDateSelector onDateChange={setAge}/>
+                    <MyDateSelector variant="secondary" onDateChange={setAge}/>
 
                     <div className="flex items-center justify-center gap-3">
                       <button 

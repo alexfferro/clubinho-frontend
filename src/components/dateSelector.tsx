@@ -8,9 +8,10 @@ const months = [
 
 interface MyDateSelectorProps {
   onDateChange: (date: string) => void;
+  variant?: 'secondary'
 }
 
-const MyDateSelector: React.FC<MyDateSelectorProps> = ({onDateChange}) => {
+const MyDateSelector: React.FC<MyDateSelectorProps> = ({onDateChange, variant = 'default'}) => {
   const currentYear = new Date().getFullYear();
   const [years] = useState<number[]>(Array.from({ length: currentYear - 1900 + 1 }, (_, i) => currentYear - i));
   const [days, setDays] = useState<number[]>([]);
@@ -36,11 +37,12 @@ const MyDateSelector: React.FC<MyDateSelectorProps> = ({onDateChange}) => {
     }
   };
 
+
   return (
     <div className='px-8'>
       <label className="px-4 font-light">Data de Nascimento</label>
-      <div className="flex gap-2 text-primary justify-between">
-        <div className="flex bg-primary bg-opacity-30 rounded-2xl items-center px-1">
+      <div className="flex gap-2 justify-between">
+        <div className={`flex bg-opacity-30 rounded-2xl items-center px-1 ${variant === 'secondary' ? 'bg-secondary text-secondary' : 'bg-primary text-primary'}`}>
           <select
             className="bg-primary bg-opacity-0 placeholder:text-primary py-1 px-4 font-light appearance-none outline-none"
             id="day"
@@ -53,7 +55,7 @@ const MyDateSelector: React.FC<MyDateSelectorProps> = ({onDateChange}) => {
           </select>
           <ChevronDown/>
         </div>   
-        <div className="flex bg-primary bg-opacity-30 rounded-2xl items-center px-1">
+        <div className={`flex bg-opacity-30 rounded-2xl items-center px-1 ${variant === 'secondary' ? 'bg-secondary text-secondary' :'bg-primary text-primary'}`}>
           <select
             className="bg-opacity-0 bg-primary placeholder:text-primary py-1 px-4 rounded-2xl font-light w-60 appearance-none outline-none"
             id="month"
@@ -66,7 +68,7 @@ const MyDateSelector: React.FC<MyDateSelectorProps> = ({onDateChange}) => {
           </select>
           <ChevronDown/>
         </div>
-        <div className="flex bg-primary bg-opacity-30 rounded-2xl items-center px-1">     
+        <div className={`flex bg-opacity-30 rounded-2xl items-center px-1 ${variant === 'secondary' ? 'bg-secondary text-secondary' : ' bg-primary text-primary'}`}>     
           <select
           className="bg-opacity-0 bg-primary placeholder:text-primary py-1 px-4 rounded-2xl font-light appearance-none outline-none"
           id="year"
@@ -77,7 +79,7 @@ const MyDateSelector: React.FC<MyDateSelectorProps> = ({onDateChange}) => {
             <option key={year} value={year}>{year}</option>
           ))}
         </select>
-        <ChevronDown/>
+        <ChevronDown />
         </div>  
       </div>
     </div>
