@@ -13,7 +13,7 @@ const InputField: React.FC<InputProps> = ({ label, onValueChange, variant = 'def
   const secondary = 'bg-opacity-30 bg-secondary placeholder:text-secondary py-2 px-4 rounded-2xl font-light'
 
   return (
-    <div className="flex flex-col gap-1.5 text-primary px-8">
+    <div className={`flex flex-col gap-1.5 px-8 ${variant === 'secondary' ? 'text-secondary' : 'text-primary'}`}>
       <label className="px-4 font-light">{label}</label>
       <input
         onChange={handleInputChange}

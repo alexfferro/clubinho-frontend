@@ -40,7 +40,7 @@ const MyDateSelector: React.FC<MyDateSelectorProps> = ({onDateChange, variant = 
 
   return (
     <div className='px-8'>
-      <label className="px-4 font-light">Data de Nascimento</label>
+      <label className={`px-4 font-light ${variant === 'secondary' ? 'text-secondary' : 'text-primary'}`}>Data de Nascimento</label>
       <div className="flex gap-2 justify-between">
         <div className={`flex bg-opacity-30 rounded-2xl items-center px-1 ${variant === 'secondary' ? 'bg-secondary text-secondary' : 'bg-primary text-primary'}`}>
           <select

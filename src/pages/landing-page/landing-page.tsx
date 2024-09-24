@@ -8,6 +8,7 @@ import { Footer } from "./footer";
 import InputField from "../../components/inputField";
 import AddressForm from "./adressForm";
 import MyDateSelector from "../../components/dateSelector";
+import { Button } from "../../components/button";
 
 interface Childs{
   id: number
@@ -130,48 +131,22 @@ export function LandingPage() {
                       setChildName(event)
                       setGender('M')
                     }} />
-                    <MyDateSelector variant="secondary" onDateChange={setAge}/>
-
+                    <MyDateSelector onDateChange={setAge}/>
                     <div className="flex items-center justify-center gap-3">
-                      <button 
-                      className="bg-opacity-30 bg-primary rounded-2xl text-primary h-[35px] w-[140px] hover:bg-primary hover:text-[#fff]"
-                      type="button" 
-                      onClick={addChild}>
-                        Confirmar  
-                      </button>
-                      <button 
-                      className="bg-opacity-60 bg-secondary rounded-2xl text-[#D46060] h-[35px] w-[140px] hover:bg-secondary hover:text-[#fff]"
-                      type="button" 
-                      onClick={closeBoyCard}>
-                        Excluir cadastro  
-                      </button>
+                      <Button children='Confirmar' variant="default"  addChild={addChild}/>
+                      <Button children='Voltar' variant="secondary"  addChild={closeBoyCard}/>
                     </div> 
                    </div>
                    :
-                   <div className="flex flex-col gap-1.5 text-secondary px-8">
-                    <label className="px-4 font-light">Nome Completo</label>
-                    <input
-                      onChange={(event) => {
-                      setChildName(event.target.value)
+                   <div className="flex flex-col gap-1.5 text-primary">
+                    <InputField variant='secondary' label="Nome Completo" placeholder="Informe aqui o nome completo" onValueChange={(event)=>{
+                      setChildName(event)
                       setGender('F')
-                      }}
-                      className="bg-opacity-30 bg-secondary placeholder:text-secondary py-2 px-4 rounded-2xl font-light"
-                      type="text"
-                      placeholder="Informe aqui o nome completo"/>
-                    <input type="date" className="px-4" onChange={event => setAge(event.target.value)} />
+                    }} />
+                    <MyDateSelector variant='secondary' onDateChange={setAge}/>
                     <div className="flex items-center justify-center gap-3">
-                      <button 
-                      className="bg-opacity-30 bg-primary rounded-2xl text-primary h-[35px] w-[140px] hover:bg-primary hover:text-[#fff]"
-                      type="button" 
-                      onClick={addChild}>
-                        Confirmar  
-                      </button>
-                      <button 
-                      className="bg-opacity-60 bg-secondary rounded-2xl text-[#D46060] h-[35px] w-[140px] hover:bg-secondary hover:text-[#fff]"
-                      type="button" 
-                      onClick={closeGirlCard}>
-                        Excluir cadastro  
-                      </button>
+                    <Button children='Confirmar' variant="default"  addChild={addChild}/>
+                    <Button children='Voltar' variant="secondary"  addChild={closeGirlCard}/>
                     </div> 
                    </div>
                    : ''
@@ -179,9 +154,7 @@ export function LandingPage() {
               </div>
               {
                 myChilds.map((child)=> 
-                (
-                  child.gender === 'M'
-                  ?
+                ( child.gender === 'M' ?
                   <div key={child.id} className="flex flex-col gap-1.5 text-primary px-8">
                     <label className="px-4 font-light">Nome Completo</label>
                     <input 
