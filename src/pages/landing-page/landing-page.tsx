@@ -36,6 +36,9 @@ export function LandingPage() {
   const { cep } = useViaCep(CEP);
 
   function addChild(){
+    if(childName.length === 0) {
+      return alert('Necessário informar um nome')
+    }
     const newChild: Childs = {
       id: myChilds.length + 1,
       childName,
@@ -165,7 +168,7 @@ export function LandingPage() {
                     <input type="date" className="px-4" value={child.age} readOnly />
                     <div className=" flex items-center justify-center">
                       <button
-                      className="bg-opacity-60 bg-secondary rounded-2xl text-[#D46060] h-[35px] w-[140px] hover:bg-secondary hover:text-[#fff]"
+                      className="rounded-2xl h-[35px] w-[140px] bg-red-400 text-[#fff] hover:bg-red-600 hover:text-[#fff]"
                       type="button"
                       onClick={()=>{removeChild(child.id)}}>
                         Excluir cadastro
@@ -183,7 +186,7 @@ export function LandingPage() {
                   <input type="date" className="px-4" value={child.age} readOnly />
                   <div className=" flex items-center justify-center">
                       <button
-                      className="bg-opacity-60 bg-secondary rounded-2xl text-[#D46060] h-[35px] w-[140px] hover:bg-secondary hover:text-[#fff]"
+                      className="rounded-2xl h-[35px] w-[140px] bg-red-400 text-[#fff] hover:bg-red-600 hover:text-[#fff]"
                       type="button"
                       onClick={()=>{removeChild(child.id)}}>
                         Excluir cadastro
